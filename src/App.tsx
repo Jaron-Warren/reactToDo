@@ -16,7 +16,7 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
   }, [todos])
 
-  function toggleTodo(id: string) {
+  function toggleTodo(id: typeof uuidv4) {
     const newTodos = [...todos]
     const todo = newTodos.find(todo => todo.id === id)
     todo.complete = !todo.complete
