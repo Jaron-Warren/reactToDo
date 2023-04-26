@@ -4,13 +4,13 @@ import { v4 as uuidv4 } from 'uuid'
 import "./style.css"
 
 function App() {
-  const [todos, setTodos] = useState<any[]>()
+  const [todos, setTodos] = useState<any[]>([])
   const todoInput: any = useRef()
   const LOCAL_STORAGE_KEY: string = 'todoApp.todos'
 
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? '')
-    if (storedTodos) setTodos(storedTodos)
+    if (storedTodos) setTodos( prevTodos => [...prevTodos, ...storedTodos] );
   }, [])
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function App() {
     const name = todoInput.current.value
     if (name === '') return
     setTodos((prevTodos: any) => {
-      return [...prevTodos, { id: uuidv4(), name: name, complete: false }]
+      return [...prevTodos, { id: crypto.randomUUID(), name: name, complete: false }]
     })
     todoInput.current.value = null
   }
